@@ -60,13 +60,13 @@ export function ToDoList() {
                                 {lista.map((item, index) => (
                                     !item.isCompleted
                                         ?
-                                        <div className="flex items-center bg-gray-950 px-6 py-3 justify-between max-w-6xl w-full border border-gray-600 rounded-sm" id="item" onClick={() => completaItem(index)}>
-                                            <span className="text-gray-300">{item.text}</span>
+                                        <div className="flex items-center  bg-gray-950 px-6 py-3 justify-between max-w-6xl w-full border border-gray-600 rounded-sm" id="item" onClick={() => completaItem(index)}>
+                                            <span className="text-gray-300 overflow-auto">{item.text}</span>
                                             <button className="text-red-500 bg-red-950 px-2 py-1 rounded-md hover:text-red-50 hover:bg-red-900" onClick={(e) => { e.stopPropagation(); deletaItem(index) }}>Deletar</button>
                                         </div>
                                         :
                                         <div className="flex items-center bg-gray-950 px-6 py-3 justify-between max-w-6xl w-full border border-gray-800 rounded-sm" id="item" onClick={() => completaItem(index)}>
-                                            <span className="text-gray-500 line-through">{item.text}</span>
+                                            <span className="text-gray-500 line-through overflow-auto">{item.text}</span>
                                             <button className="text-red-500 bg-red-950 px-2 py-1 rounded-md hover:text-red-50 hover:bg-red-900" onClick={(e) => { e.stopPropagation(); deletaItem(index) }}>Deletar</button>
                                         </div>
                                 ))}
