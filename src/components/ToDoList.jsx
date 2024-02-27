@@ -31,12 +31,24 @@ export function ToDoList() {
         setLista(updatedList)
     }
 
+    const editaItem = (indexEditado) => {
+        const valorNovo = prompt('Edite sua tarefa.')
+
+        const updatedList = lista.map((item, index) => {
+            if (index === indexEditado) {
+                return { ...item, text: valorNovo }
+            }
+            return item
+        })
+        setLista(updatedList)
+    }
+
     return (
         <>
             <div className="flex flex-col justify-center items-center px-3">
                 <div className="flex justify-center py-3 w-full gap-2">
                     <div className="flex flex-col border-b pb-3 border-gray-700 w-full max-w-6xl gap-2">
-                        <h1 className="text-2xl max-w-6xl">Lista de Tarefas ଘ(ᵕ ૩ᵕ)━☆ﾟ.*･｡ﾟ </h1>
+                        <h1 className="text-2xl max-w-6xl">Lista de Tarefas ଘ(ᵕ ૩ᵕ)━☆ﾟ.*･｡ﾟ</h1>
                         <form className="flex rounded-r-lg" onSubmit={adicionaItem}>
                             <input
                                 id="input-entrada"
@@ -60,14 +72,26 @@ export function ToDoList() {
                                 {lista.map((item, index) => (
                                     !item.isCompleted
                                         ?
-                                        <div className="flex items-center  bg-gray-950 px-6 py-3 justify-between max-w-6xl w-full border border-gray-600 rounded-sm" id="item" onClick={() => completaItem(index)}>
-                                            <span className="text-gray-300 overflow-auto">{item.text}</span>
-                                            <button className="text-red-500 bg-red-950 px-2 py-1 rounded-md hover:text-red-50 hover:bg-red-900" onClick={(e) => { e.stopPropagation(); deletaItem(index) }}>Deletar</button>
+                                        <div className="flex items-center  bg-gray-950 px-4 py-3 justify-between max-w-6xl w-full border border-gray-600 rounded-sm" id="item" onClick={() => completaItem(index)}>
+                                            <div className="flex items-center gap-4">
+                                                <p className="text-xs bg-gray-800 py-1 px-2 rounded-xl">{index+1}</p>
+                                                <span className="text-gray-300 overflow-auto">{item.text}</span>
+                                            </div>
+                                            <div className="flex gap-1">
+                                                <button className="text-teal-500 bg-teal-950 px-2 py-1 rounded-md hover:text-teal-50 hover:bg-teal-900" onClick={(e) => { e.stopPropagation(); editaItem(index) }}>Editar</button>
+                                                <button className="text-red-500 bg-red-950 px-2 py-1 rounded-md hover:text-red-50 hover:bg-red-900" onClick={(e) => { e.stopPropagation(); deletaItem(index) }}>Deletar</button>
+                                            </div>
                                         </div>
                                         :
-                                        <div className="flex items-center bg-gray-950 px-6 py-3 justify-between max-w-6xl w-full border border-gray-800 rounded-sm" id="item" onClick={() => completaItem(index)}>
-                                            <span className="text-gray-500 line-through overflow-auto">{item.text}</span>
-                                            <button className="text-red-500 bg-red-950 px-2 py-1 rounded-md hover:text-red-50 hover:bg-red-900" onClick={(e) => { e.stopPropagation(); deletaItem(index) }}>Deletar</button>
+                                        <div className="flex items-center  bg-gray-950 px-4 py-3 justify-between max-w-6xl w-full border border-gray-800 rounded-sm" id="item" onClick={() => completaItem(index)}>
+                                            <div className="flex items-center gap-4">
+                                                <p className="text-xs bg-gray-800 py-1 px-2 rounded-xl">{index+1}</p>
+                                                <span className="text-gray-500 overflow-auto line-through">{item.text}</span>
+                                            </div> 
+                                            <div className="flex gap-1">
+                                                <button className="text-teal-500 bg-teal-950 px-2 py-1 rounded-md hover:text-teal-50 hover:bg-teal-900" onClick={(e) => { e.stopPropagation(); editaItem(index) }}>Editar</button>
+                                                <button className="text-red-500 bg-red-950 px-2 py-1 rounded-md hover:text-red-50 hover:bg-red-900" onClick={(e) => { e.stopPropagation(); deletaItem(index) }}>Deletar</button>
+                                            </div>
                                         </div>
                                 ))}
                                 <button className="bg-zinc-950 text-red-700 px-2 py-1 rounded-lg text-xs font hover:bg-zinc-800 hover:text-red-400" onClick={() => { setLista([]) }}>Deletar todas</button>
